@@ -1,16 +1,24 @@
-# APIs - زاد المسلم
+# API Documentation
+
+## التهيئة
+
+```bash
+cp .env.example .env
+npm install
+npm run seed
+npm start
+```
 
 ## المصادقة
 
 ### POST /api/auth/register
 ```json
 {
-  "username": "username",
+  "username": "user1",
   "email": "user@example.com",
   "password": "password123"
 }
 ```
-الاستجابة: `{"token": "jwt_token", "userId": 1, "role": "user"}`
 
 ### POST /api/auth/login
 ```json
@@ -20,49 +28,84 @@
 }
 ```
 
-## المحتوى
+### GET /api/auth/me
+Header:
+```http
+Authorization: Bearer <token>
+```
+
+## المحتوى العام
 
 ### GET /api/content/surahs
-السور المتحققة منها. لا تتضمن نص قرآني.
+- `limit` (اختياري)
+- `offset` (اختياري)
 
-### GET /api/content/athkar?category=morning
-الأذكار المتحققة منها. الفئات: `all`, `morning`, `evening`, `sleep`, `prayer`
-
+### GET /api/content/athkar
 ### GET /api/content/hadith
-الأحاديث المتحققة منها.
+### GET /api/content/lectures
+### GET /api/content/fiqh
+### GET /api/content/courses
 
 ## البحث
 
-### GET /api/search?q=keyword
-بحث موحد في السور والأذكار والأحاديث.
+### GET /api/search?q=الفاتحة
+```json
+{
+  "results": [
+    {
+      "type": "surahs",
+      "title": "الفاتحة",
+      "meta": "مكية"
+    }
+  ],
+  "total": 1
+}
+```
 
-## متابعة المستخدم (مطلوب Token)
+## التقدم
 
 ### POST /api/progress/save
+Header:
+```http
+Authorization: Bearer <token>
+```
+
 ```json
 {
   "date": "2026-09-27",
   "data": {
-    "prayer_fajr": 1,
-    "prayer_dhuhr": 0,
-    "athkar_morning": 1,
-    "quran_read": 1
+    "quran": 2,
+    "athkar": 3
   }
 }
 ```
 
-### GET /api/progress/2026-09-27
-استرجاع نشاط اليوم المحفوظ.
+### GET /api/progress/:date
+Header:
+```http
+Authorization: Bearer <token>
+```
 
-## الإدارة (مطلوب Role: admin أو editor)
+## الإدارة
+
+### GET /api/admin/review
+Header:
+```http
+Authorization: Bearer <token>
+```
 
 ### POST /api/admin/content/athkar
+Header:
+```http
+Authorization: Bearer <token>
+```
+
 ```json
 {
   "category": "morning",
-  "text": "سُبْحَانَ اللَّهِ",
+  "text": "سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",
   "count": 3,
-  "source": "صحيح البخاري"
+  "source": "مراجعة داخلية"
 }
 ```
 
@@ -72,9 +115,23 @@
   "status": "verified"
 }
 ```
-الحالات: `review`, `verified`, `rejected`
 
 ## الصحة
 
 ### GET /api/health
-التحقق من حالة الخادم.
+Returns:
+```json
+{
+  "status": "ok",
+  "database": "ok",
+  "timestamp": "2026-09-27T00:00:00.000Z"
+}
+```
+
+## ملاحظات الأمان
+
+- لا تستخدم `JWT_SECRET` ضعيفًا في الإنتاج.
+- لا تستخدم كلمة مرور المدير الافتراضية في البيئة الحقيقية.
+- استخدم HTTPS وCORS محدودًا.
+- لا تنشر أي محتوى ديني إلا بعد مراجعة علمية ومصدر موثوق.
+
