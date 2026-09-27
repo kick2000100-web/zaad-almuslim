@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#0d6b50">
+  <meta name="description" content="زاد المسلم - القرآن والأذكار والحديث والمتابعة">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="style.css">
+  <title>زاد المسلم</title>
+</head>
+<body>
+  <header class="app-header">
+    <div><p class="eyebrow">منصة إسلامية محلية</p><h1>زاد المسلم</h1><p class="muted">محتوى منظم مع توضيح حالة المصد��</p></div>
+    <div class="header-actions"><a class="btn secondary" href="admin.html">الإدارة</a><button class="btn secondary" id="installBtn" hidden>تثبيت</button></div>
+  </header>
+  <main class="container">
+    <section class="hero panel"><div><p class="eyebrow">رفيقك اليومي</p><h2>اقرأ، تذكر، وتابع تقدمك</h2><p>تطبيق خفيف يعمل محليًا. النص القرآني الكامل غير مضمن هنا؛ تُعرض بيانات السور فقط ما لم تتم إضافة مصدر موثوق ومرخص.</p><div class="actions"><button class="btn" data-view="quran">تصفح السور</button><button class="btn secondary" data-view="athkar">ابدأ الأذكار</button></div></div><div class="hero-stat"><strong id="progressValue">0%</strong><span>إنجاز اليوم</span></div></section>
+    <section class="toolbar panel"><label for="globalSearch">بحث المحتوى</label><input id="globalSearch" type="search" placeholder="ابحث في السور والأذكار والأحاديث" autocomplete="off"><div id="searchStatus" class="muted" aria-live="polite"></div></section>
+    <section id="searchResults" class="panel" hidden></section>
+    <nav class="tabs" aria-label="الأقسام"><button class="tab active" data-view="home">الرئيسية</button><button class="tab" data-view="quran">القرآن</button><button class="tab" data-view="athkar">الأذكار</button><button class="tab" data-view="hadith">الحديث</button><button class="tab" data-view="tracker">المتابعة</button><button class="tab" data-view="tasbeeh">السبحة</button></nav>
+    <section class="view" data-section="home"><div class="grid two"><article class="panel"><p class="eyebrow">آخر نشاط</p><h2 id="lastActivity">لا يوجد نشاط محفوظ بعد</h2><p class="muted">ستظهر هنا آخر أذكار أو متابعة حفظتها على هذا الجهاز.</p></article><article class="panel"><p class="eyebrow">حالة التطبيق</p><h2 id="connectionStatus">متصل</h2><p class="muted">المحتوى المحلي متاح دون حساب. المزامنة السحابية غير مفعلة.</p></article></div><div class="panel"><h2>المحتوى المتاح</h2><div id="homeHighlights" class="grid three"></div></div></section>
+    <section class="view" data-section="quran" hidden><div class="panel"><div class="section-heading"><div><p class="eyebrow">بيانات موثقة</p><h2>سور القرآن</h2></div><span class="badge">بدون نص مخترع</span></div><div id="surahList" class="list"></div></div></section>
+    <section class="view" data-section="athkar" hidden><div class="panel"><div class="section-heading"><div><p class="eyebrow">محتوى يحتاج مصدرًا واضحًا</p><h2>الأذكار</h2></div><select id="athkarCategory" aria-label="تصنيف الأذكار"><option value="all">الكل</option><option value="morning">الصباح</option><option value="evening">المساء</option><option value="sleep">النوم</option><option value="prayer">بعد الصلاة</option></select></div><div id="athkarList" class="list"></div></div></section>
+    <section class="view" data-section="hadith" hidden><div class="panel"><div class="section-heading"><div><p class="eyebrow">حالة التحقق ظاهرة</p><h2>الأحاديث</h2></div></div><div id="hadithList" class="list"></div></div></section>
+    <section class="view" data-section="tracker" hidden><div class="panel"><div class="section-heading"><div><p class="eyebrow">محلي على هذا الجهاز</p><h2>متابعة العبادات</h2></div><strong id="trackerPercentage">0%</strong></div><div id="trackerList" class="list"></div></div></section>
+    <section class="view" data-section="tasbeeh" hidden><div class="panel tasbeeh"><p class="eyebrow">عداد محلي</p><h2 id="tasbeehPhrase">سُبْحَانَ اللَّهِ وَبِحَمْدِهِ</h2><button id="tasbeehButton" class="tasbeeh-button" aria-label="زيادة العداد"><strong id="tasbeehCount">0</strong><span>اضغط للتسبيح</span></button><div class="tasbeeh-footer"><button class="btn secondary" id="resetTasbeeh">إعادة</button><span>الإجمالي: <b id="tasbeehTotal">0</b></span></div></div></section>
+  </main>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+</body>
+</html>
